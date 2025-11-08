@@ -1,4 +1,4 @@
-import pyttsx3
+
 from datetime import datetime
 import requests
 import json
@@ -6,17 +6,6 @@ import streamlit as st
 import qrcode
 import string
 
-def say(text):
-    try:
-        engine = pyttsx3.init()
-        voices = engine.getProperty('voices')
-        engine.setProperty('voice',voices[0].id)
-        engine.setProperty('rate',190)
-        engine.setProperty('volume',0.6)
-        engine.say(text)
-        engine.runAndWait()
-    except:
-        pass
 st.title('Assistant')
 
 def greeting():
@@ -30,24 +19,16 @@ def greeting():
         real_hour = hour - 12 
     if hour>=6 and hour<12:
         st.text(f'Good morning .')
-        say(f'Good morning .')
         st.text(f'Current time is, {real_hour}:{minute} AM')
-        say(f'Current time is, {real_hour}:{minute} AM')
     elif hour>=12 and hour<17:
         st.text(f'Good afternoon .')
-        say(f'Good afternoon .')
         st.text(f'Current time is, {real_hour}:{minute} PM')
-        say(f'Current time is, {real_hour}:{minute} PM')
     elif hour>=17 and hour<20:
         st.text(f'Good evening .')
-        say(f'Good evening .')
         st.text(f'Current time is, {real_hour}:{minute} PM')
-        say(f'Current time is, {real_hour}:{minute} PM')
     elif hour>=20:
         st.text(f'Good night .')
-        say(f'Good night .')
         st.text(f'Current time is, {real_hour}:{minute} AM')
-        say(f'Current time is, {real_hour}:{minute} AM')
 
 ch = st.selectbox('What do you like to know?',['Greeting','QR Code','Jokes','Weather'])
 
@@ -61,7 +42,6 @@ elif ch=='QR Code':
         link = st.text_input('Enter your URL')
         if link=='':
             st.warning('Please enter a valid URL to generate QR code.')
-            say('Please enter a valid URL to generate QR code.')
         else:
             st.info(f'Your URL is: {link}')    
             image = qrcode.make(link)
@@ -69,7 +49,6 @@ elif ch=='QR Code':
                 image.save('mycode.png')
                 st.image('mycode.png', caption='Your QR', use_container_width=True)
                 st.success('QR code created successfully!')
-                say('QR code created successfully!')
     elif choise=='Generate QR for UPI': 
         st.header('Please fill up the details :')
         upi_id = st.text_input('What is your UPI ID? ')
@@ -82,7 +61,6 @@ elif ch=='QR Code':
         url = f"upi://pay?pa={upi_id}&pn={new_name}&am={amount}&cu={currency}"
         if upi_id=='' or name=='' or amount=='':
             st.warning('Please fill all the details to generate UPI QR code.')
-            say('Please fill all the details to generate UPI QR code.')
         else:
             st.info(f'Your URL is: {url}')
             image = qrcode.make(url)
@@ -90,21 +68,16 @@ elif ch=='QR Code':
                 image.save('upiqr.png')
                 st.image('upiqr.png', caption='Your UPI QR', use_container_width=True)
                 st.success('UPI QR code created successfully!')
-                say('UPI QR code created successfully!')
 
 elif ch=='Jokes':
     st.header('Jokes')
     try:
         url = 'https://official-joke-api.appspot.com/random_joke'
         response = requests.get(url)
-        data = response.json()
         st.text(data['setup'])
-        say(data['setup'])
         st.text(data['punchline'])
-        say(data['punchline'])
     except:
         st.warning('Oops...looks like something went wrong. Check the internet connection.')
-        say('Oops...looks like something went wrong. Check the internet connection.')
 
 elif ch=='Weather':
     st.header('Brief weather report')
@@ -114,7 +87,6 @@ elif ch=='Weather':
         st.info(url)
         if city=='':
             st.warning('Please enter a city name to get the weather report.')
-            say('Please enter a city name to get the weather report.')
         else:
             response = requests.get(url)
             data = response.json()
@@ -145,4 +117,4 @@ elif ch=='Weather':
     except:
         st.warning('Oops...looks like something went wrong. Check the internet connection.')
 
-        say('Oops...looks like something went wrong. Check the internet connection.')
+
