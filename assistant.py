@@ -7,15 +7,17 @@ import qrcode
 import string
 
 def say(text):
-    engine = pyttsx3.init()
-    voices = engine.getProperty('voices')
-    engine.setProperty('voice',voices[0].id)
-    engine.setProperty('rate',190)
-    engine.setProperty('volume',0.6)
-    engine.say(text)
-    engine.runAndWait()
-
-# st.title('Assistant')
+    try:
+        engine = pyttsx3.init()
+        voices = engine.getProperty('voices')
+        engine.setProperty('voice',voices[0].id)
+        engine.setProperty('rate',190)
+        engine.setProperty('volume',0.6)
+        engine.say(text)
+        engine.runAndWait()
+    except:
+        pass
+st.title('Assistant')
 
 def greeting():
     today = datetime.now()
@@ -142,4 +144,5 @@ elif ch=='Weather':
             st.text(f"Pressure: {pressure} inches")
     except:
         st.warning('Oops...looks like something went wrong. Check the internet connection.')
+
         say('Oops...looks like something went wrong. Check the internet connection.')
