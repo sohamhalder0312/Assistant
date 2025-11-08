@@ -1,7 +1,8 @@
-pyttsx3
+
 datetime
 requests
 json
 streamlit as st
 qrcode
 string
+
