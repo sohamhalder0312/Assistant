@@ -4,7 +4,7 @@ import streamlit as st
 import qrcode
 import io
 
-st.title('Assistant')
+st.title('SmartDesk - one place for your small everyday tools')
 
 def greeting():
     today = datetime.now()
@@ -111,3 +111,4 @@ elif ch == 'Weather':
             st.text(f"Pressure: {pressure} inches")
         except Exception as e:
             st.warning(f'Oops...something went wrong. Check your internet connection. ({e})')
+
