@@ -10,7 +10,11 @@ def greeting():
     today = datetime.now()
     hour = today.hour
     minute = today.minute
-    real_hour = hour if hour <= 12 else hour - 12
+    if hour<=12:
+        real_hour = hour
+    else:
+        real_hour = hour - 12
+    
     if hour >= 6 and hour < 12:
         st.text('Good morning.')
         st.text(f'Current time is, {real_hour}:{minute:02d} AM')
@@ -111,4 +115,5 @@ elif ch == 'Weather':
             st.text(f"Pressure: {pressure} inches")
         except Exception as e:
             st.warning(f'Oops...something went wrong. Check your internet connection. ({e})')
+
 
